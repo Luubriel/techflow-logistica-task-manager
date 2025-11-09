@@ -13,6 +13,7 @@
             <th>Descrição</th>
             <th>Completa?</th>
             <th></th>
+            <th></th>
         </tr>
         {% for task in tasks_list %}
         <tr>
@@ -21,7 +22,13 @@
             <td>{{ task.description }}</td>
             <td>{{ task.completed }}</td>
             <td>
-                <a href="{% url 'tasks:update' task.id%}">Editar</a>
+                <a type="button" href="{% url 'tasks:update' task.id %}">Editar</a>
+            </td>
+            <td>
+                <form method="post" action="{% url 'tasks:delete' task.id %}">
+                {% csrf_token %}
+                <button type="submit">Excluir</button>
+                </form>
             </td>
         </tr>
         {% endfor %}

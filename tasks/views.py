@@ -37,5 +37,5 @@ class TaskUpdateView(TaskBaseView, UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-
-    
+class TaskDeleteView(TaskBaseView, DeleteView):
+    pass

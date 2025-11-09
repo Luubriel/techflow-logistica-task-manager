@@ -4,15 +4,10 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'priority', 'completed']
         widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'form-control', 
-                'placeholder': 'Ex: Comprar leite'
-            }),
-            'description': forms.Textarea(attrs={
-                'class': 'form-control', 
-                'rows': 3, 
-                'placeholder': 'Detalhes da tarefa...'
-            }),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Comprar leite'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Detalhes da tarefa...'}),
+            'priority': forms.Select(attrs={'class': 'form-select'}),
+            'completed': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

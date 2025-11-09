@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <form id="task-form" method="post">
+        {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.title.label_tag }}</td>
+            <td>{{ form.title }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.description.label_tag }}</td>
+            <td>{{ form.description }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.completed.label_tag }}</td>
+            <td>{{ form.completed }}</td>
+        </tr>
+        </table>
+        <button type="submit">Inserir</button>
+    </form>
+</div>
+
+{% endblock %}

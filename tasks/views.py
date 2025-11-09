@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Case, When, Value, IntegerField
 
 from .forms import TaskForm
 from .models import Task
@@ -21,7 +22,16 @@ class TaskBaseView(LoginRequiredMixin, View):
     success_url = reverse_lazy('tasks:all')
 
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)
+        return Task.objects.filter(user=self.request.user).order_by(
+            'completed',
+            Case(
+                When(priority='A', then=Value(1)),
+                When(priority='M', then=Value(2)),
+                When(priority='B', then=Value(3)),
+                output_field=IntegerField(),
+            ),
+            '-created_at'
+        )
 
 class TaskListView(TaskBaseView, ListView):
     context_object_name = 'tasks_list'

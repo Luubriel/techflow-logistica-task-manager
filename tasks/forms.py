@@ -4,7 +4,7 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'completed']
+        fields = ['title', 'description']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'form-control', 
@@ -14,9 +14,5 @@ class TaskForm(forms.ModelForm):
                 'class': 'form-control', 
                 'rows': 3, 
                 'placeholder': 'Detalhes da tarefa...'
-            }),
-            # Checkbox precisa da classe 'form-check-input' para ficar bonito no Bootstrap
-            'completed': forms.CheckboxInput(attrs={
-                'class': 'form-check-input'
             }),
         }

@@ -53,20 +53,6 @@
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <div class="form-check">
-                                {{ form.completed }}
-                                <label class="form-check-label" for="{{ form.completed.id_for_label }}">
-                                    {{ form.completed.label }}
-                                </label>
-                            </div>
-                            {% if form.completed.errors %}
-                                <div class="text-danger small mt-1">
-                                    {{ form.completed.errors.0 }}
-                                </div>
-                            {% endif %}
-                        </div>
-
                         <hr>
 
                         <div class="d-flex justify-content-end gap-2">

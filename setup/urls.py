@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from authentication import views as authentication_views
+
 urlpatterns = [
     path('', include('tasks.urls')),
     path('admin/', admin.site.urls),
+    path('login/', authentication_views.UserLoginView.as_view(template_name="authentication/login.html"), name='login'),
+    path('logout/', authentication_views.user_logout, name='logout'),
 ]

@@ -4,38 +4,58 @@
 
 {% block content %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Você não possuí acesso a essa página.</p>
-    {% else %}
-    <p>Faça login para visualizar essa página.</p>
-    {% endif %}
-{% endif %}
-
-<div class="container-fluid d-flex justify-content-center mt-5">
-  <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="col-12 col-md-6 col-lg-4">
     
-    {% if form.errors %}
-    <p class="text-danger">Usuário ou senha incorretos. Tente novamente</p>
-    {% endif %}
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="card-title text-center mb-4">TechFlow Tasks</h3>
 
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <div class="container text-end">
-            <div class="mb-1">
-                {{ form.username.label_tag }}
-                {{ form.username }}
+        {# --- Área de Mensagens e Alertas --- #}
+        {% if next %}
+            {% if user.is_authenticated %}
+            <div class="alert alert-warning text-center" role="alert">
+                Você não possui acesso a essa página.
             </div>
+            {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                Faça login para continuar.
+            </div>
+            {% endif %}
+        {% endif %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Usuário ou senha incorretos.
+        </div>
+        {% endif %}
+        {# ---------------------------------- #}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            
             <div class="mb-3">
-                {{ form.password.label_tag }}
-                {{ form.password }}
+                <label for="{{ form.username.id_for_label }}" class="form-label">Usuário</label>
+                <div class="input-group">
+                    {{ form.username }}
+                </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Entrar</button>
+            
+            <div class="mb-4">
+                <label for="{{ form.password.id_for_label }}" class="form-label">Senha</label>
+                <div class="input-group">
+                     {{ form.password }}
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+            </div>
             <input type="hidden" name="next" value="{{ next }}">
-        </div>
-    </form>
+        </form>
+      </div>
+    </div>
+
   </div>
 </div>
 

@@ -22,6 +22,6 @@ from authentication import views as authentication_views
 urlpatterns = [
     path('', include('tasks.urls')),
     path('admin/', admin.site.urls),
-    path('login/', authentication_views.UserLoginView.as_view(template_name="authentication/login.html"), name='login'),
+    path('login/', authentication_views.UserLoginView.as_view(), name='login'),
     path('logout/', authentication_views.user_logout, name='logout'),
 ]

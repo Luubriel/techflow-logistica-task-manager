@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
@@ -42,3 +42,10 @@ class TaskDeleteView(TaskBaseView, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, "A tarefa foi excluída com sucesso.")
         return super().form_valid(form)
+
+class TaskCompleteView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk, user=request.user)
+        task.completed = not task.completed
+        task.save()
+        return redirect('tasks:all')
